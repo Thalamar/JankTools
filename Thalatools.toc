@@ -1,0 +1,17 @@
+## Interface: 90002
+## Title: Thalatools
+## Notes: WoW Addon for misc tools and
+## Author: Thalamar
+## Version: 0.1
+## SavedVariables: ThalaDB
+
+Localization\Localization.lua
+Localization\enUS.lua
+
+Functions.lua
+UI.lua
+
+Core.lua
+Thalatools.lua
+
+
