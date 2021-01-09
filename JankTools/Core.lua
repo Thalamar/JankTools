@@ -1,17 +1,21 @@
 local AddonName, TTools = ...
 local AddonPrefix = "TTOOLSADDON"
 TTools.version = "0.0.1"
-TTools.Msg.Prefix = {
+TTools.MsgPrefix = {
     [AddonPrefix] = true
 }
 TTools.addonMsgEvents = {}
 
+
 TTools.Locale = GetLocale()
-TTools.Client.Version = Select(4, GetBuildInfo())
+TTools.ClientVersion = select(4, GetBuildInfo())
+TTools.Modules = {}
+TTools.ModulesOptions = {}
 
 --- GET CHARACTER INFORMATION
+TTools.User = {}
 TTools.User.Character = UnitName('player')
-TTools.User.Realm = GetRealmName():sub(" ", "")
+TTools.User.Realm = GetRealmName()
 TTools.User.Level = UnitLevel('player')
 TTools.User.Class = UnitClass('player')
 
@@ -26,7 +30,7 @@ SlashCmdList["TTOOLS"] = function(p)
 
     end
 
-    TTools.UI.frame:Show()
+    TTools.UI:Show()
 end
 
 SLASH_TTOOLS1 = "/ttools"
@@ -46,26 +50,29 @@ end)
 
 
 
-function TTools.mod:New(moduleName)
-    if TTools.modList[moduleName] then
+function TTools.Modules:New(moduleName, listName)
+    if TTools.Modules[moduleName] then
         return false
     end
     local self = {}
+    setmetatable(self, TTools.Module)
 
     self.frame = CreateFrame("Frame", nil)
-    self.frame:SetScript("OnEvent",TTools.mod.Event)
+    self.frame:SetScript("OnEvent",TTools.Module.Event)
     self.frame.events = {}
     self.name = moduleName
 
-    table.insert(TTools.mods,self)
-    TTools.modList[moduleName] = self
+    self.options = TTools.UI:NewModule(moduleName, listName)
+    self.options.moduleName = moduleName
+
+    table.insert(TTools.Modules,self)
 
     print("New Thalatools module: "..moduleName)
 
     return self
 end
 
-function TTools.mod:Event(event,...)
+function TTools.Modules:Event(event,...)
     self[event](self,...)
 end
 

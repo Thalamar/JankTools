@@ -1,17 +1,16 @@
 ## Interface: 90002
-## Title: Thalatools
+## Title: JankTools
 ## Notes: WoW Addon for misc tools and
 ## Author: Thalamar
 ## Version: 0.1
-## SavedVariables: ThalaDB
+## SavedVariables: JankDB
 
-Localization\Localization.lua
-Localization\enUS.lua
+fonts.xml
 
 Functions.lua
 UI.lua
 
 Core.lua
-Thalatools.lua
+JankTools.lua
 
-
+KeyModule.lua
